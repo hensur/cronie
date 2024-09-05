@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
 	(void) sigaction(SIGURG, &sact, NULL);
 
 	acquire_daemonlock(0);
-	set_cron_uid();
+	//set_cron_uid();
 	check_spool_dir();
 
 	if (ChangePath) {
@@ -260,7 +260,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	/* Get the default locale character set for the mail 
+	/* Get the default locale character set for the mail
 	 * "Content-Type: ...; charset=" header
 	 */
 	setlocale(LC_ALL, "");	/* set locale to system defaults or to
@@ -322,7 +322,7 @@ int main(int argc, char *argv[]) {
 	fd = -1;
 #if defined WITH_INOTIFY
 	if (DisableInotify || EnableClustering) {
-		log_it("CRON", getpid(), "No inotify - daemon runs with -i or -c option", 
+		log_it("CRON", getpid(), "No inotify - daemon runs with -i or -c option",
 			"", 0);
 	}
 	else {
@@ -446,7 +446,7 @@ int main(int argc, char *argv[]) {
 					if (job_runqueue())
 						sleep(10);
 					virtualTime++;
-					if (virtualTime >= timeRunning) 
+					if (virtualTime >= timeRunning)
 						/* always run also the other timezone jobs in the last step */
 						oldGMToff = GMToff;
 					find_jobs(virtualTime, &database, FALSE, TRUE, oldGMToff);
