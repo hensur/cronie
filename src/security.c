@@ -1,4 +1,4 @@
-/* security.c 
+/* security.c
  *
  * Implement Red Hat crond security context transitions
  *
@@ -117,7 +117,7 @@ int cron_set_job_security_context(entry *e, user *u ATTRIBUTE_UNUSED,
 #endif
 
 	if ((e->flags & MIN_STAR) == MIN_STAR) {
-		/* "minute-ly" job: Every minute for given hour/dow/month/dom. 
+		/* "minute-ly" job: Every minute for given hour/dow/month/dom.
 		 * Ensure that these jobs never run in the same minute:
 		 */
 		minutely_time = time(NULL);
@@ -163,16 +163,18 @@ int cron_set_job_security_context(entry *e, user *u ATTRIBUTE_UNUSED,
 	}
 #endif
 
+/*
 	if (cron_change_groups(e->pwd) != 0) {
 		return -1;
 	}
+*/
 
 	*jobenv = build_env(e->envp);
 
 	time_t job_run_time = time(NULL);
 
 	if ((minutely_time > 0) && ((job_run_time / 60) != (minutely_time / 60))) {
-		/* if a per-minute job is delayed into the next minute 
+		/* if a per-minute job is delayed into the next minute
 		 * (eg. by network authentication method timeouts), skip it.
 		 */
 		struct tm tmS, tmN;
@@ -643,7 +645,7 @@ int crontab_security_access(void) {
 #endif
 
 /* Build up the job environment from the PAM environment plus the
-* crontab environment 
+* crontab environment
 */
 static char **build_env(char **cronenv) {
 	char **jobenv;
@@ -745,4 +747,3 @@ int allowed(const char *username, const char *allow_file,
 #endif
 	return (isallowed);
 }
-
